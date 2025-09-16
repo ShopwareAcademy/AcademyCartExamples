@@ -1,0 +1,37 @@
+{
+    "name": "academy/cart-examples",
+    "description": "Academy plugin demonstrating cart validation, processing, and custom logic for educational purposes",
+    "version": "1.0.0",
+    "type": "shopware-platform-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Shopware Academy",
+            "email": "academy@shopware.com"
+        }
+    ],
+    "require": {
+        "shopware/core": "~6.7.0"
+    },
+    "extra": {
+        "shopware-plugin-class": "AcademyCartExamples\\AcademyCartExamples",
+        "label": {
+            "de-DE": "Academy Cart Examples",
+            "en-GB": "Academy Cart Examples"
+        },
+        "description": {
+            "de-DE": "Demonstrates cart validation, processing, and custom logic for educational purposes",
+            "en-GB": "Demonstrates cart validation, processing, and custom logic for educational purposes"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "AcademyCartExamples\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AcademyCartExamples\\Tests\\": "tests/"
+        }
+    }
+}
