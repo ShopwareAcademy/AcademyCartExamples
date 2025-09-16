@@ -117,7 +117,3 @@ MIT License - Educational use only
 ## Contributing
 
 This plugin is part of the Shopware Academy curriculum. For educational purposes only.
-
-## Version History
-
-- **v1.0.0**: Initial release with cart validation examples and comprehensive test suite
