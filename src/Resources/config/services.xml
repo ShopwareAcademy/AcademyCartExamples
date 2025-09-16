@@ -13,6 +13,11 @@
             <tag name="shopware.cart.validator"/>
         </service>
 
+        <!-- Cart processors -->
+        <service id="AcademyCartExamples\Cart\Processor\BulkDiscountProcessor">
+            <tag name="shopware.cart.processor"/>
+        </service>
+
         <!-- Cart processors and collectors will be added in future learning units -->
     </services>
 </container>
