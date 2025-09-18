@@ -15,9 +15,19 @@
 
         <!-- Cart processors -->
         <service id="AcademyCartExamples\Cart\Processor\BulkDiscountProcessor">
-            <tag name="shopware.cart.processor"/>
+            <tag name="shopware.cart.processor" priority="100"/>
         </service>
 
-        <!-- Cart processors and collectors will be added in future learning units -->
+        <service id="AcademyCartExamples\Cart\Processor\B2BPromotionProcessor">
+            <tag name="shopware.cart.processor" priority="90"/>
+        </service>
+
+        <service id="AcademyCartExamples\Cart\Processor\CustomShippingProcessor">
+            <tag name="shopware.cart.processor" priority="80"/>
+        </service>
+
+        <service id="AcademyCartExamples\Cart\Processor\CustomTaxProcessor">
+            <tag name="shopware.cart.processor" priority="70"/>
+        </service>
     </services>
 </container>
