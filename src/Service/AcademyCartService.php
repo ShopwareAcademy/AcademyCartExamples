@@ -33,7 +33,6 @@ class AcademyCartService
     private const int QUANTITY_OVER_HUNDRED = 100;
     private const int QUANTITY_OVER_FIFTY = 50;
     private const int QUANTITY_OVER_TWENTY = 20;
-
     private const float BULK_DISCOUNT_PERCENTAGE_FIFTEEN = 15.0;
     private const float BULK_DISCOUNT_PERCENTAGE_TEN = 10.0;
     private const float BULK_DISCOUNT_PERCENTAGE_FIVE = 5.0;

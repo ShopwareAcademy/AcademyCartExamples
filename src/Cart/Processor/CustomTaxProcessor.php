@@ -35,6 +35,4 @@ class CustomTaxProcessor implements CartProcessorInterface
 
         $price->setCalculatedTaxes($newCalculatedTaxes);
     }
-
-
 }
