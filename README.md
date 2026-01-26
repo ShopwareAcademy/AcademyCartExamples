@@ -107,12 +107,12 @@ This plugin demonstrates:
 ## Requirements
 
 - Shopware 6.7+
-- PHP 8.1+
+- PHP 8.3
 - Composer
 
 ## License
 
-MIT License - Educational use only
+MIT License – Educational use only
 
 ## Contributing
 

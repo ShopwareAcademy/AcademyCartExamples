@@ -3,13 +3,16 @@
 namespace AcademyCartExamples\Test\Cart\Processor;
 
 use AcademyCartExamples\Cart\Processor\CustomShippingProcessor;
+use AcademyCartExamples\Service\AcademyCartService;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Checkout\Cart\Cart;
 use Shopware\Core\Checkout\Cart\CartBehavior;
 use Shopware\Core\Checkout\Cart\Delivery\Struct\Delivery;
 use Shopware\Core\Checkout\Cart\Delivery\Struct\DeliveryCollection;
 use Shopware\Core\Checkout\Cart\Delivery\Struct\DeliveryDate;
+use Shopware\Core\Checkout\Cart\Delivery\Struct\DeliveryPositionCollection;
 use Shopware\Core\Checkout\Cart\Delivery\Struct\ShippingLocation;
+use Shopware\Core\Checkout\Customer\CustomerEntity;
 use Shopware\Core\Checkout\Shipping\ShippingMethodEntity;
 use Shopware\Core\Checkout\Cart\LineItem\CartDataCollection;
 use Shopware\Core\Checkout\Cart\LineItem\LineItem;
@@ -25,10 +28,11 @@ class CustomShippingProcessorTest extends TestCase
     use KernelTestBehaviour;
 
     private CustomShippingProcessor $processor;
+    private AcademyCartService $academyCartService;
 
     protected function setUp(): void
     {
-        $this->processor = new CustomShippingProcessor();
+        $this->processor = new CustomShippingProcessor($this->academyCartService);
     }
 
     public function testAppliesFreeShippingForB2BHighValueOrders(): void
@@ -143,7 +147,7 @@ class CustomShippingProcessorTest extends TestCase
         );
         
         return new Delivery(
-            new \Shopware\Core\Checkout\Cart\Delivery\Struct\DeliveryPositionCollection(),
+            new DeliveryPositionCollection(),
             new DeliveryDate(new \DateTime(), new \DateTime()),
             $shippingMethod,
             $shippingLocation,
@@ -153,7 +157,7 @@ class CustomShippingProcessorTest extends TestCase
 
     private function createB2BContext(): SalesChannelContext
     {
-        $customer = $this->createMock(\Shopware\Core\Checkout\Customer\CustomerEntity::class);
+        $customer = $this->createMock(CustomerEntity::class);
         $customer->method('getCompany')->willReturn('Test Company');
         
         $context = $this->createMock(SalesChannelContext::class);
@@ -164,7 +168,7 @@ class CustomShippingProcessorTest extends TestCase
 
     private function createRegularCustomerContext(): SalesChannelContext
     {
-        $customer = $this->createMock(\Shopware\Core\Checkout\Customer\CustomerEntity::class);
+        $customer = $this->createMock(CustomerEntity::class);
         $customer->method('getCompany')->willReturn(null);
         
         $context = $this->createMock(SalesChannelContext::class);

@@ -3,6 +3,7 @@
 namespace AcademyCartExamples\Test\Cart\Processor;
 
 use AcademyCartExamples\Cart\Processor\CustomTaxProcessor;
+use AcademyCartExamples\Service\AcademyCartService;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Checkout\Cart\Cart;
 use Shopware\Core\Checkout\Cart\CartBehavior;
@@ -11,6 +12,7 @@ use Shopware\Core\Checkout\Cart\Price\Struct\CartPrice;
 use Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTax;
 use Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection;
 use Shopware\Core\Checkout\Cart\Tax\Struct\TaxRuleCollection;
+use Shopware\Core\Checkout\Customer\CustomerEntity;
 use Shopware\Core\Framework\Test\TestCaseBase\KernelTestBehaviour;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 
@@ -19,10 +21,11 @@ class CustomTaxProcessorTest extends TestCase
     use KernelTestBehaviour;
 
     private CustomTaxProcessor $processor;
+    private AcademyCartService $academyCartService;
 
     protected function setUp(): void
     {
-        $this->processor = new CustomTaxProcessor();
+        $this->processor = new CustomTaxProcessor($this->academyCartService);
     }
 
     public function testAppliesReducedTaxForB2BCustomers(): void
@@ -93,7 +96,7 @@ class CustomTaxProcessorTest extends TestCase
 
     private function createB2BContext(): SalesChannelContext
     {
-        $customer = $this->createMock(\Shopware\Core\Checkout\Customer\CustomerEntity::class);
+        $customer = $this->createMock(CustomerEntity::class);
         $customer->method('getCompany')->willReturn('Test Company');
         
         $context = $this->createMock(SalesChannelContext::class);
@@ -104,7 +107,7 @@ class CustomTaxProcessorTest extends TestCase
 
     private function createRegularCustomerContext(): SalesChannelContext
     {
-        $customer = $this->createMock(\Shopware\Core\Checkout\Customer\CustomerEntity::class);
+        $customer = $this->createMock(CustomerEntity::class);
         $customer->method('getCompany')->willReturn(null);
         
         $context = $this->createMock(SalesChannelContext::class);

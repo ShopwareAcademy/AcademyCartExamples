@@ -3,6 +3,7 @@
 namespace AcademyCartExamples\Test\Cart\Processor;
 
 use AcademyCartExamples\Cart\Processor\BulkDiscountProcessor;
+use AcademyCartExamples\Service\AcademyCartService;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Checkout\Cart\Cart;
 use Shopware\Core\Checkout\Cart\CartBehavior;
@@ -17,10 +18,11 @@ use Shopware\Core\System\SalesChannel\SalesChannelContext;
 class BulkDiscountProcessorTest extends TestCase
 {
     private BulkDiscountProcessor $processor;
+    private AcademyCartService $academyCartService;
 
     protected function setUp(): void
     {
-        $this->processor = new BulkDiscountProcessor();
+        $this->processor = new BulkDiscountProcessor($this->academyCartService);
     }
 
     public function testAppliesBulkDiscountForB2BCustomers(): void
