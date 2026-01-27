@@ -6,7 +6,9 @@
     <services>
 
         <!-- Service -->
-        <service id="AcademyCartExamples\Service\AcademyCartService" />
+        <service id="AcademyCartExamples\Service\AcademyCartService">
+            <argument type="service" id="Shopware\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
+        </service>
 
         <!-- Cart validators -->
         <service id="AcademyCartExamples\Cart\MinimumOrderValueValidator">
@@ -25,19 +27,9 @@
             <tag name="shopware.cart.processor" priority="100"/>
         </service>
 
-        <service id="AcademyCartExamples\Cart\Processor\B2BPromotionProcessor">
+        <service id="AcademyCartExamples\Cart\Processor\B2BDiscountProcessor">
             <argument type="service" id="AcademyCartExamples\Service\AcademyCartService" />
             <tag name="shopware.cart.processor" priority="90"/>
-        </service>
-
-        <service id="AcademyCartExamples\Cart\Processor\CustomShippingProcessor">
-            <argument type="service" id="AcademyCartExamples\Service\AcademyCartService" />
-            <tag name="shopware.cart.processor" priority="80"/>
-        </service>
-
-        <service id="AcademyCartExamples\Cart\Processor\CustomTaxProcessor">
-            <argument type="service" id="AcademyCartExamples\Service\AcademyCartService" />
-            <tag name="shopware.cart.processor" priority="70"/>
         </service>
 
     </services>

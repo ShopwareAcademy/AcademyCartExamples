@@ -11,7 +11,6 @@ use Shopware\Core\System\SalesChannel\SalesChannelContext;
 
 class ProductAvailabilityValidator implements CartValidatorInterface
 {
-
     public function __construct(
         private readonly AcademyCartService $academyCartService
     ) {
@@ -30,5 +29,4 @@ class ProductAvailabilityValidator implements CartValidatorInterface
             }
         }
     }
-
 }
