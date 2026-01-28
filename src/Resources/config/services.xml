@@ -4,30 +4,33 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+
+        <!-- Service -->
+        <service id="AcademyCartExamples\Service\AcademyCartService">
+            <argument type="service" id="Shopware\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
+        </service>
+
         <!-- Cart validators -->
         <service id="AcademyCartExamples\Cart\MinimumOrderValueValidator">
+            <argument type="service" id="AcademyCartExamples\Service\AcademyCartService" />
             <tag name="shopware.cart.validator"/>
         </service>
 
         <service id="AcademyCartExamples\Cart\ProductAvailabilityValidator">
+            <argument type="service" id="AcademyCartExamples\Service\AcademyCartService" />
             <tag name="shopware.cart.validator"/>
         </service>
 
         <!-- Cart processors -->
         <service id="AcademyCartExamples\Cart\Processor\BulkDiscountProcessor">
+            <argument type="service" id="AcademyCartExamples\Service\AcademyCartService" />
             <tag name="shopware.cart.processor" priority="100"/>
         </service>
 
-        <service id="AcademyCartExamples\Cart\Processor\B2BPromotionProcessor">
+        <service id="AcademyCartExamples\Cart\Processor\B2BDiscountProcessor">
+            <argument type="service" id="AcademyCartExamples\Service\AcademyCartService" />
             <tag name="shopware.cart.processor" priority="90"/>
         </service>
 
-        <service id="AcademyCartExamples\Cart\Processor\CustomShippingProcessor">
-            <tag name="shopware.cart.processor" priority="80"/>
-        </service>
-
-        <service id="AcademyCartExamples\Cart\Processor\CustomTaxProcessor">
-            <tag name="shopware.cart.processor" priority="70"/>
-        </service>
     </services>
 </container>

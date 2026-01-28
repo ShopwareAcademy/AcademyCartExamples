@@ -6,17 +6,14 @@ use Shopware\Core\Checkout\Cart\Error\Error;
 
 class MinimumOrderValueError extends Error
 {
-    private const KEY = 'academy-minimum-order-value';
+    private const string KEY = 'academy-minimum-order-value';
 
-    private float $currentValue;
-    private float $minimumValue;
-    private float $missing;
-
-    public function __construct(float $currentValue, float $minimumValue, float $missing)
+    public function __construct(
+        private readonly float $currentValue,
+        private readonly float $minimumValue,
+        private readonly float $missing
+    )
     {
-        $this->currentValue = $currentValue;
-        $this->minimumValue = $minimumValue;
-        $this->missing = $missing;
         parent::__construct();
     }
 

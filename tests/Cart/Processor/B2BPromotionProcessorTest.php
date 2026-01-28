@@ -2,7 +2,8 @@
 
 namespace AcademyCartExamples\Test\Cart\Processor;
 
-use AcademyCartExamples\Cart\Processor\B2BPromotionProcessor;
+use AcademyCartExamples\Cart\Processor\B2BDiscountProcessor;
+use AcademyCartExamples\Service\AcademyCartService;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Checkout\Cart\Cart;
 use Shopware\Core\Checkout\Cart\CartBehavior;
@@ -11,6 +12,7 @@ use Shopware\Core\Checkout\Cart\LineItem\LineItem;
 use Shopware\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection;
 use Shopware\Core\Checkout\Cart\Tax\Struct\TaxRuleCollection;
+use Shopware\Core\Checkout\Customer\CustomerEntity;
 use Shopware\Core\Framework\Test\TestCaseBase\KernelTestBehaviour;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 
@@ -18,11 +20,12 @@ class B2BPromotionProcessorTest extends TestCase
 {
     use KernelTestBehaviour;
 
-    private B2BPromotionProcessor $processor;
+    private B2BDiscountProcessor $processor;
+    private AcademyCartService $academyCartService;
 
     protected function setUp(): void
     {
-        $this->processor = new B2BPromotionProcessor();
+        $this->processor = new B2BDiscountProcessor($this->academyCartService);
     }
 
     public function testAppliesB2BDiscountForHighValueOrders(): void
@@ -102,7 +105,7 @@ class B2BPromotionProcessorTest extends TestCase
 
     private function createB2BContext(): SalesChannelContext
     {
-        $customer = $this->createMock(\Shopware\Core\Checkout\Customer\CustomerEntity::class);
+        $customer = $this->createMock(CustomerEntity::class);
         $customer->method('getCompany')->willReturn('Test Company');
         
         $context = $this->createMock(SalesChannelContext::class);
@@ -113,7 +116,7 @@ class B2BPromotionProcessorTest extends TestCase
 
     private function createRegularCustomerContext(): SalesChannelContext
     {
-        $customer = $this->createMock(\Shopware\Core\Checkout\Customer\CustomerEntity::class);
+        $customer = $this->createMock(CustomerEntity::class);
         $customer->method('getCompany')->willReturn(null);
         
         $context = $this->createMock(SalesChannelContext::class);

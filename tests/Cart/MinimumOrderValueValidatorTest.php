@@ -3,19 +3,17 @@
 namespace AcademyCartExamples\Test\Cart;
 
 use AcademyCartExamples\Cart\MinimumOrderValueValidator;
+use PHPUnit\Framework\TestCase;
 use Shopware\Core\Framework\Test\TestCaseBase\KernelTestBehaviour;
 use Shopware\Core\Checkout\Cart\Cart;
-use Shopware\Core\Checkout\Cart\Error\Error;
 use Shopware\Core\Checkout\Cart\Error\ErrorCollection;
-use Shopware\Core\Checkout\Cart\Error\GenericCartError;
-use Shopware\Core\Checkout\Cart\LineItem\LineItem;
 use Shopware\Core\Checkout\Cart\Price\Struct\CartPrice;
 use Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection;
 use Shopware\Core\Checkout\Cart\Tax\Struct\TaxRuleCollection;
 use Shopware\Core\Checkout\Customer\CustomerEntity;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 
-class MinimumOrderValueValidatorTest extends \PHPUnit\Framework\TestCase
+class MinimumOrderValueValidatorTest extends TestCase
 {
     use KernelTestBehaviour;
 

@@ -4,10 +4,10 @@ namespace AcademyCartExamples\Test\Cart;
 
 use AcademyCartExamples\Cart\Error\MinimumOrderValueError;
 use AcademyCartExamples\Cart\MinimumOrderValueValidator;
+use AcademyCartExamples\Service\AcademyCartService;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Checkout\Cart\Cart;
 use Shopware\Core\Checkout\Cart\Error\ErrorCollection;
-use Shopware\Core\Checkout\Cart\LineItem\LineItem;
 use Shopware\Core\Checkout\Cart\Price\Struct\CartPrice;
 use Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection;
 use Shopware\Core\Checkout\Cart\Tax\Struct\TaxRuleCollection;
@@ -17,10 +17,12 @@ use Shopware\Core\System\SalesChannel\SalesChannelContext;
 class SimpleMinimumOrderValueValidatorTest extends TestCase
 {
     private MinimumOrderValueValidator $validator;
+    private AcademyCartService $academyCartService;
+
 
     protected function setUp(): void
     {
-        $this->validator = new MinimumOrderValueValidator();
+        $this->validator = new MinimumOrderValueValidator($this->academyCartService);
     }
 
     public function testValidatesB2BCustomerMinimumOrder(): void
