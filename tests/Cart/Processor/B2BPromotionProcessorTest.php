@@ -2,7 +2,8 @@
 
 namespace AcademyCartExamples\Test\Cart\Processor;
 
-use AcademyCartExamples\Cart\Processor\B2BPromotionProcessor;
+use AcademyCartExamples\Cart\Processor\B2BDiscountProcessor;
+use AcademyCartExamples\Service\AcademyCartService;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Checkout\Cart\Cart;
 use Shopware\Core\Checkout\Cart\CartBehavior;
@@ -18,11 +19,12 @@ class B2BPromotionProcessorTest extends TestCase
 {
     use KernelTestBehaviour;
 
-    private B2BPromotionProcessor $processor;
+    private B2BDiscountProcessor $processor;
+    private AcademyCartService $academyCartService;
 
     protected function setUp(): void
     {
-        $this->processor = new B2BPromotionProcessor();
+        $this->processor = new B2BDiscountProcessor($this->academyCartService);
     }
 
     public function testAppliesB2BDiscountForHighValueOrders(): void

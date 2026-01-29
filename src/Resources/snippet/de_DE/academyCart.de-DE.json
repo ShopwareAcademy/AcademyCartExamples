@@ -1,8 +1,0 @@
-{
-    "checkout": {
-        "academy-minimum-order-value": "Mindestbestellwert nicht erreicht."
-    },
-    "error": {
-        "academy-minimum-order-value": "Mindestbestellwert nicht erreicht."
-    }
-}
