@@ -4,20 +4,13 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <!-- Cart validators -->
-        <service id="AcademyCartExamples\Cart\MinimumOrderValueValidator">
-            <tag name="shopware.cart.validator"/>
-        </service>
 
-        <service id="AcademyCartExamples\Cart\ProductAvailabilityValidator">
-            <tag name="shopware.cart.validator"/>
-        </service>
+        <service id="AcademyCartExamples\Service\AcademyCartService" />
 
-        <!-- Cart processors -->
         <service id="AcademyCartExamples\Cart\Processor\BulkDiscountProcessor">
+            <argument type="service" id="AcademyCartExamples\Service\AcademyCartService" />
             <tag name="shopware.cart.processor"/>
         </service>
 
-        <!-- Cart processors and collectors will be added in future learning units -->
     </services>
 </container>
