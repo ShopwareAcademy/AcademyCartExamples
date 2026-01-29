@@ -4,12 +4,17 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+
+        <service id="AcademyCartExamples\Service\AcademyCartService"/>
+
         <!-- Cart validators -->
         <service id="AcademyCartExamples\Cart\MinimumOrderValueValidator">
+            <argument type="service" id="AcademyCartExamples\Service\AcademyCartService" />
             <tag name="shopware.cart.validator"/>
         </service>
 
         <service id="AcademyCartExamples\Cart\ProductAvailabilityValidator">
+            <argument type="service" id="AcademyCartExamples\Service\AcademyCartService" />
             <tag name="shopware.cart.validator"/>
         </service>
 
