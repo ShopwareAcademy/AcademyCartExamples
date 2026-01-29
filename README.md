@@ -1,48 +1,112 @@
 # AcademyCartExamples Plugin
 
-A Shopware 6 plugin demonstrating cart validation, processing, and custom logic for educational purposes.
-
-## Overview
-
-This plugin serves as a practical example for the Shopware Academy learning units on cart validation and processing. It demonstrates real-world scenarios that developers encounter when building custom cart logic in Shopware 6.
+A Shopware 6 plugin demonstrating cart validation, cart processing, and custom cart logic for educational purposes.
 
 ## Features
 
-### Cart Validation
-- **Minimum Order Value Validator**: Enforces minimum order values for B2B customers
-- **Product Availability Validator**: Basic product availability checking
-- **Custom Error Classes**: Proper error handling with translation support
+- Cart validation examples (e.g. minimum order value)
+- Cart processing examples (custom processors)
+- Custom cart errors with snippet translations (German/English)
+- PHPUnit tests for validators and processors
 
-### Testing
-- **Comprehensive Test Suite**: 6 PHPUnit tests with 12 assertions
-- **Integration Tests**: Full Shopware kernel integration
-- **Unit Tests**: Isolated component testing
-- **Shopware 6.7 Compatible**: Uses latest interfaces and patterns
+## Component Structure
 
-### Internationalization
-- **German Translations**: Complete German language support
-- **English Translations**: Default English language support
-- **Translation Keys**: Proper snippet key usage
+The plugin focuses on cart-related components instead of DAL entities:
+
+- **Validators** (validate cart state and add errors)
+  - `MinimumOrderValueValidator` (B2B minimum order value example)
+  - `ProductAvailabilityValidator` (availability validation example)
+- **Processors** (manipulate cart during calculation)
+  - `BulkDiscountProcessor`
+  - `B2BDiscountProcessor`
+- **Errors**
+  - `MinimumOrderValueError` (translated cart error)
+
+## Configuration / Rules (Examples)
+
+This plugin includes educational example logic, e.g.:
+
+- Treat customers with a company (`company` set) as B2B
+- Apply a minimum order value threshold (see validator implementation)
+
+## Architecture Overview
+
+### Core Components
+
+1. **Cart Validation**
+   - Implements validation logic to block checkout / show cart errors when conditions are not met.
+
+2. **Cart Processing**
+   - Demonstrates how to implement processors that participate in the cart calculation pipeline.
+
+3. **Internationalization**
+   - Snippets under `Resources/snippet` provide DE/EN messages for cart errors.
+
+4. **Testing**
+   - Example PHPUnit tests for validators/processors using Shopware’s kernel test bootstrap.
+
+### File Structure
+
+```
+src/
+├── AcademyCartExamples.php                       # Main plugin class
+├── Cart/
+│   ├── Error/
+│   │   └── MinimumOrderValueError.php            # Custom error class
+│   ├── MinimumOrderValueValidator.php            # Minimum order value validation
+│   ├── ProductAvailabilityValidator.php          # Availability validation
+│   └── Processor/
+│       ├── B2BDiscountProcessor.php              # Processor example
+│       └── BulkDiscountProcessor.php             # Processor example
+├── Service/
+│   └── AcademyCartService.php                    # Supporting service(s)
+└── Resources/
+    ├── config/
+    │   └── services.xml                          # Service definitions
+    └── snippet/
+        ├── de_DE/academyCart.de-DE.json
+        └── en_GB/academyCart.en-GB.json
+
+tests/
+├── Cart/
+│   ├── MinimumOrderValueValidatorTest.php
+│   ├── SimpleMinimumOrderValueValidatorTest.php
+│   └── Processor/
+│       ├── B2BPromotionProcessorTest.php
+│       └── BulkDiscountProcessorTest.php
+└── TestBootstrap.php
+```
 
 ## Installation
 
-1. Copy the plugin to your Shopware 6 installation:
-   ```bash
-   cp -r AcademyCartExamples /path/to/shopware/custom/plugins/
-   ```
+1. Place the plugin in `custom/plugins/AcademyCartExamples/`
+2. Run `bin/console plugin:refresh`
+3. Run `bin/console plugin:install --activate AcademyCartExamples`
+4. Run `bin/console cache:clear`
 
-2. Install and activate the plugin:
-   ```bash
-   bin/console plugin:refresh
-   bin/console plugin:install --activate AcademyCartExamples
-   ```
+## Usage
 
-3. Clear the cache:
-   ```bash
-   bin/console cache:clear
-   ```
+### Minimum Order Value Validation (Example)
 
-## Testing
+Depending on the implemented logic, the plugin can add a cart error for B2B customers if a minimum order value is not reached.
+
+### Error Messages
+
+Snippets are provided in:
+
+- `Resources/snippet/en_GB/academyCart.en-GB.json`
+- `Resources/snippet/de_DE/academyCart.de-DE.json`
+
+## Technical Details
+
+### Cart Integration
+
+This plugin demonstrates:
+
+- Where and how to register custom cart validators/processors via DI (`services.xml`)
+- How to add translated cart errors and display them in the cart
+
+### Testing
 
 Run the test suite:
 
@@ -51,48 +115,14 @@ Run the test suite:
 ./vendor/bin/phpunit --configuration="custom/plugins/AcademyCartExamples"
 ```
 
-## Usage
+## Development Notes
 
-### B2B Minimum Order Validation
+This plugin serves as a reference implementation for:
 
-The plugin automatically validates B2B customers (customers with a company) against a minimum order value of €100.00.
-
-- **B2B customers below minimum**: Cart shows validation error
-- **B2C customers**: No validation applied
-- **B2B customers above minimum**: Validation passes
-
-### Error Messages
-
-The plugin provides localized error messages:
-
-- **English**: "Minimum order value not reached. Current: €X.XX, Required: €100.00, Missing: €Y.YY"
-- **German**: "Mindestbestellwert nicht erreicht. Aktuell: €X.XX, Erforderlich: €100.00, Fehlend: €Y.YY"
-
-## Code Structure
-
-```
-src/
-├── AcademyCartExamples.php              # Main plugin class
-├── Cart/
-│   ├── MinimumOrderValueValidator.php   # B2B minimum order validation
-│   ├── ProductAvailabilityValidator.php # Product availability validation
-│   └── Error/
-│       └── MinimumOrderValueError.php   # Custom error class
-└── Resources/
-    ├── config/
-    │   └── services.xml                 # Service definitions
-    └── snippet/
-        ├── de_DE/
-        │   └── academyCart.de-DE.json   # German translations
-        └── en_GB/
-            └── academyCart.en-GB.json   # English translations
-
-tests/
-├── Cart/
-│   ├── MinimumOrderValueValidatorTest.php      # Integration tests
-│   └── SimpleMinimumOrderValueValidatorTest.php # Unit tests
-└── TestBootstrap.php                           # Test bootstrap
-```
+- Cart validation patterns in Shopware 6
+- Cart processing pipeline examples
+- Translated cart errors (snippets)
+- Writing PHPUnit tests for cart extensions
 
 ## Educational Value
 
@@ -112,7 +142,7 @@ This plugin demonstrates:
 
 ## License
 
-MIT License – Educational use only
+MIT License – Educational use only (intended as an educational example; the MIT license in `composer.json` applies).
 
 ## Contributing
 
